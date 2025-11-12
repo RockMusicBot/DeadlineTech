@@ -5,7 +5,7 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     InlineQueryResultPhoto,
 )
-from youtubesearchpython.__future__ import VideosSearch
+from py_yt import VideosSearch
 
 from DeadlineTech import app
 from DeadlineTech.utils.inlinequery import answer
