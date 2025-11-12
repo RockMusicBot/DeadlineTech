@@ -31,11 +31,11 @@ You're free to remove the bot or revoke access anytime.
 **Updates to this Policy:**
 This policy may be updated. We recommend reviewing it periodically.
 
-📎 **Full Privacy Document**: [View Here](https://telegra.ph/Privacy-Policy-Bot-Hub-12-18-2)
+📎 **Full Privacy Document**: [View Here](https://graph.org/Privacy-Policy-05-01-30)
 
 ---
 
-🤖 Powered with ❤️ by **Team DeadlineTech** – committed to open, safe, and secure bot experiences.
+🤖 Powered with ❤️ by **ShrutiBots** – committed to open, safe, and secure bot experiences.
 """
 
 # 📍 Privacy Command Handler
