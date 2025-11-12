@@ -22,23 +22,19 @@ HELP_2 = """
 """
 
 HELP_3 = """
-<b><u>𝖢𝖫𝖮𝖭𝖨𝖭𝖦 𝖠 𝖡𝖮𝖳</u></b> 🤖
+<b><u>Our Music Bots</u></b> 🤖
 
-✨ <b>Create your own bot clone easily by following these steps:</b>
+🎵 <b>Our Official Music Bots are:</b>
 
-① Open <b>@BotFather</b> on Telegram.  
-② Type <code>/newbot</code> and follow the prompts.  
-③ Choose a display name for your clone.  
-④ Pick a unique username (must end with <i>bot</i>).  
-⑤ Once done, @BotFather will give you an <b>API token</b>.  
-⑥ Send this token to <b>@HarryxRobot</b> in PM using the format below:  
-   <code>/clone yourbottoken</code>  
-   (❗ Do not include square brackets!)
+① @ShrutixMusicBot  
+② @KomalMusicRobot  
+③ @LushMusicBot  
+④ @M4_Music_Bot  
+⑤ @Music4vcBot  
+⑥ @Ananya_VcMusic_Bot  
+⑦ @YouTubeIndiaMusicBot  
 
-📌 <u>Example:</u>  
-<code>/clone 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11</code>
-
-🎧 <b>Official Demo Bot:</b> <a href="https://t.me/TuhiMusicBot">@TuhiMusicBot</a>
+🎧 <b>Our Main Music Bot:</b> <a href="https://t.me/ShrutixMusicBot">@ShrutixMusicBot</a>
 """
 
 HELP_4 = """
