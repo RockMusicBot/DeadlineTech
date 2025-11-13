@@ -1,66 +1,94 @@
-import logging
-from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
+
+import random
+from pyrogram import filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from config import LOG_GROUP_ID
 from DeadlineTech import app
-from config import LOGGER_ID as JOINLOGS
+from DeadlineTech.utils.database import add_served_chat, get_assistant
 
-# Setup logging
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
+welcome_photo = "https://files.catbox.moe/ajobub.jpg"
 
-# Cache the bot's ID at startup
-BOT_ID = None
-
-
-@app.on_message(filters.new_chat_members)
-async def on_new_chat_members(client: Client, message: Message):
-    global BOT_ID
-
+@app.on_message(filters.new_chat_members, group=-10)
+async def join_watcher(_, message):
     try:
-        if BOT_ID is None:
-            bot_user = await client.get_me()
-            BOT_ID = bot_user.id
-            logger.info(f"Cached bot ID: {BOT_ID}")
+        userbot = await get_assistant(message.chat.id)
+        chat = message.chat
+        for members in message.new_chat_members:
+            if members.id == app.id:
+                count = await app.get_chat_members_count(chat.id)
+                username = message.chat.username if message.chat.username else "Private Group"
+                
+                # Try to get invite link if bot has admin rights
+                invite_link = ""
+                try:
+                    if not message.chat.username:  # Only for private groups
+                        link = await app.export_chat_invite_link(message.chat.id)
+                        invite_link = f"\nGroup Link: {link}" if link else ""
+                except:
+                    pass
+                
+                msg = (
+                    f"Music Bot Added In A New Group\n\n"
+                    f"Chat Name: {message.chat.title}\n"
+                    f"Chat ID: {message.chat.id}\n"
+                    f"Chat Username: @{username}\n"
+                    f"Group Members: {count}\n"
+                    f"Added By: {message.from_user.mention}"
+                    f"{invite_link}"
+                )
+                
+                buttons = []
+                if message.from_user.id:
+                    buttons.append([InlineKeyboardButton("Added By", 
+                                    url=f"tg://openmessage?user_id={message.from_user.id}")])
+                
+                await app.send_photo(
+                    LOG_GROUP_ID,
+                    photo=welcome_photo,
+                    caption=msg,
+                    reply_markup=InlineKeyboardMarkup(buttons) if buttons else None
+                )
+                
+                await add_served_chat(message.chat.id)
+                if username:
+                    await userbot.join_chat(f"@{username}")
+
     except Exception as e:
-        logger.exception("Failed to get bot info")
-        return  # Early exit to prevent further failures
+        print(f"Error: {e}")
 
-    for new_member in message.new_chat_members:
-        if new_member.id == BOT_ID:
-            try:
-                added_by = (
-                    f"<a href='tg://user?id={message.from_user.id}'>👤{message.from_user.first_name}</a>"
-                    if message.from_user else "Unknown User"
-                )
 
-                chat_title = message.chat.title
-                chat_id = message.chat.id
-                chat_username = f"@{message.chat.username}" if message.chat.username else "Private Group"
-                chat_link = (
-                    f"https://t.me/{message.chat.username}"
-                    if message.chat.username else None
-                )
+from pyrogram.types import Message
+from DeadlineTech.utils.database import delete_served_chat, get_assistant
 
-                log_text = (
-                    "<b>🚀 Bot Added Successfully!</b>\n\n"
-                    "╭───────⍟\n"
-                    f"├ 💬 <b>Chat Name:</b> <code>{chat_title}</code>\n"
-                    f"├ 🆔 <b>Chat ID:</b> <code>{chat_id}</code>\n"
-                    f"├ 🌐 <b>Username:</b> {chat_username}\n"
-                    f"└ 👤 <b>Added By:</b> {added_by}\n"
-                    "╰─────────────⍟"
-                )
+photo = [
+    "https://telegra.ph/file/1949480f01355b4e87d26.jpg",
+    "https://telegra.ph/file/3ef2cc0ad2bc548bafb30.jpg",
+    "https://telegra.ph/file/a7d663cd2de689b811729.jpg",
+    "https://telegra.ph/file/6f19dc23847f5b005e922.jpg",
+    "https://telegra.ph/file/2973150dd62fd27a3a6ba.jpg",
+]
 
-                buttons = [[InlineKeyboardButton("➤ Link 🔗", url=chat_link)]] if chat_link else None
 
-                await client.send_message(
-                    JOINLOGS,
-                    text=log_text,
-                    reply_markup=InlineKeyboardMarkup(buttons) if buttons else None,
-                    disable_web_page_preview=True
-                )
-                logger.info(f"Join log sent for chat ID: {chat_id}")
-            except Exception as e:
-                logger.exception(f"[JOINLOG ERROR] Failed to send join log for chat ID: {message.chat.id}")
+@app.on_message(filters.left_chat_member, group=-12)
+async def on_left_chat_member(_, message: Message):
+    try:
+        userbot = await get_assistant(message.chat.id)
+
+        left_chat_member = message.left_chat_member
+        if left_chat_member and left_chat_member.id == (await app.get_me()).id:
+            remove_by = (
+                message.from_user.mention if message.from_user else "𝐔ɴᴋɴᴏᴡɴ 𝐔sᴇʀ"
+            )
+            title = message.chat.title
+            username = (
+                f"@{message.chat.username}" if message.chat.username else "𝐏ʀɪᴠᴀᴛᴇ 𝐂ʜᴀᴛ"
+            )
+            chat_id = message.chat.id
+            left = f"✫ <b><u>#𝐋ᴇғᴛ_𝐆ʀᴏᴜᴘ</u></b> ✫\n\n𝐂ʜᴀᴛ 𝐓ɪᴛʟᴇ : {title}\n\n𝐂ʜᴀᴛ 𝐈ᴅ : {chat_id}\n\n𝐑ᴇᴍᴏᴠᴇᴅ 𝐁ʏ : {remove_by}\n\n𝐁ᴏᴛ : @{app.username}"
+            await app.send_photo(LOG_GROUP_ID, photo=random.choice(photo), caption=left)
+            await delete_served_chat(chat_id)
+            await userbot.leave_chat(chat_id)
+    except Exception as e:
+        return
 
 
