@@ -44,7 +44,7 @@ async def init():
 
     await app.set_bot_commands([
         BotCommand("start", "Sᴛᴀʀᴛ's Tʜᴇ Bᴏᴛ"),
-        BotCommand("clone", "start your own bot now"), 
+        BotCommand("settings", "ettings of bot"), 
         BotCommand("ping", "Cʜᴇᴄᴋ ɪғ ʙᴏᴛ ɪs ᴀʟɪᴠᴇ"),
         BotCommand("help", "Gᴇᴛ Cᴏᴍᴍᴀɴᴅs Lɪsᴛ"),
         BotCommand("music", "download the songs 🎵"), 
