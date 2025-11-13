@@ -1,8 +1,8 @@
-
+                    
 import random
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from config import LOG_GROUP_ID
+from config import LOGGER_ID
 from DeadlineTech import app
 from DeadlineTech.utils.database import add_served_chat, get_assistant
 
@@ -43,7 +43,7 @@ async def join_watcher(_, message):
                                     url=f"tg://openmessage?user_id={message.from_user.id}")])
                 
                 await app.send_photo(
-                    LOG_GROUP_ID,
+                    LOGGER_ID,
                     photo=welcome_photo,
                     caption=msg,
                     reply_markup=InlineKeyboardMarkup(buttons) if buttons else None
@@ -85,7 +85,7 @@ async def on_left_chat_member(_, message: Message):
             )
             chat_id = message.chat.id
             left = f"✫ <b><u>#𝐋ᴇғᴛ_𝐆ʀᴏᴜᴘ</u></b> ✫\n\n𝐂ʜᴀᴛ 𝐓ɪᴛʟᴇ : {title}\n\n𝐂ʜᴀᴛ 𝐈ᴅ : {chat_id}\n\n𝐑ᴇᴍᴏᴠᴇᴅ 𝐁ʏ : {remove_by}\n\n𝐁ᴏᴛ : @{app.username}"
-            await app.send_photo(LOG_GROUP_ID, photo=random.choice(photo), caption=left)
+            await app.send_photo(LOGGER_ID, photo=random.choice(photo), caption=left)
             await delete_served_chat(chat_id)
             await userbot.leave_chat(chat_id)
     except Exception as e:
