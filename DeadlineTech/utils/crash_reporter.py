@@ -1,4 +1,4 @@
-# Powered By DeadlineTech
+# Powered By 😁😁😁😁😁😁
 
 import asyncio
 from traceback import format_exc
