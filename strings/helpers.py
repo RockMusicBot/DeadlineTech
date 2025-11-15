@@ -24,14 +24,14 @@ HELP_2 = """
 HELP_3 = """
 <b><u>Our Music Bots</u></b> 🤖
 
-🎵 <b>Our Official Music Bots are:</b>
+🎵 <b>Try Our Other Music Bots:</b>
 
 ① @ShrutixMusicBot  
 ② @KomalMusicRobot  
 ③ @LushMusicBot  
 ④ @M4_Music_Bot  
 ⑤ @Music4vcBot  
-⑥ @Ananya_VcMusic_Bot  
+⑥ @iHeartMusic_Bot
 ⑦ @YouTubeIndiaMusicBot  
 
 🎧 <b>Our Main Music Bot:</b> <a href="https://t.me/ShrutixMusicBot">@ShrutixMusicBot</a>
